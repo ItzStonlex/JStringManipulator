@@ -25,6 +25,12 @@ public final class StringManipulatorContext {
         tokenProcessorMap.put("print", TokenPrint::new);
     }
 
+    private QueryTokensExecutor _initDefaultVariables(QueryTokensExecutor executor) {
+        executor.addVar("PI", "Double", Math.PI);
+
+        return executor;
+    }
+
     @SuppressWarnings("unchecked")
     public <Processor extends TokensProcessor> Processor peekProcessor(QueryTokenizer tokenizer, String token) {
         return (Processor) tokenProcessorMap.getOrDefault(token, (f) -> null).apply(tokenizer);
@@ -35,6 +41,6 @@ public final class StringManipulatorContext {
     }
 
     public QueryTokensExecutor createTokensExecutor(StringQuery stringQuery) {
-        return new QueryTokensExecutor(this, stringQuery);
+        return _initDefaultVariables(new QueryTokensExecutor(this, stringQuery));
     }
 }

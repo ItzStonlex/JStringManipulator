@@ -30,27 +30,23 @@ In one session, you can perform many types of queries.
 Example Code:
 ```java
 StringManipulatorContext context = new StringManipulatorContext();
+
 StringManipulatorSession session = context.createSession();
 
-session.execute(
+StringQuery collectionsQuery =
         session.makeQuery("new @Collection as $collect")
-                .newLine("add 'Misha' into $collect")
-                .newLine("add 'Egor' into $collect")
-                .newLine("print $collect ]")
-);
+        .next("add 'Misha' in $collect")
+        .next("add 'Egor' in $collect")
+        .next("print $collect ]");
 
-session.execute(
-        session.makeQuery("print 'Hello!' ]")
-);
+session.execute(collectionsQuery);
 
-session.execute(
-        session.makeQuery("print 'Queries:' 3 ]")
-);
+session.execute(session.makeQuery("print 'Hello!' ]"));
+session.execute(session.makeQuery("print 'Queries:' 3 ]"));
 
-session.execute(
-        session.makeQuery("print 'PI:' 3.1415 ]")
-);
+session.execute(session.makeQuery("print 'PI:' $PI ]"));
 
+// Commit & execute session queries.
 session.commit();
 ```
 
@@ -58,8 +54,8 @@ Example Console Response:
 ```
 [Misha, Egor]
 Hello!
-Queries:3.0
-PI:3.1415
+Queries:3
+PI:3.141592653589793
 ```
 
 ---

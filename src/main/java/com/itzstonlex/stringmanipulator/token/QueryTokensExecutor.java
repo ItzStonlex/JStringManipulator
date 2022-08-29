@@ -29,6 +29,10 @@ public class QueryTokensExecutor {
         variables.put(name, value);
     }
 
+    public void addVar(String name, String type, Object value) {
+        addVar(name, new TokenType(name, type, value));
+    }
+
     public void execute() {
         QueryTokenizer tokenizer = newTokenizer();
 
@@ -42,4 +46,5 @@ public class QueryTokensExecutor {
             }
         }
     }
+
 }

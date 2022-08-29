@@ -17,6 +17,14 @@ public abstract class TokensProcessor {
         return tokenizer.nextToken();
     }
 
+    protected boolean isObject(String token) {
+        return token.startsWith("@");
+    }
+
+    protected boolean isVarName(String token) {
+        return token.startsWith("$");
+    }
+
     protected boolean isString(String token) {
         return token.startsWith("'") && token.endsWith("'");
     }
@@ -27,7 +35,7 @@ public abstract class TokensProcessor {
 
     protected boolean isNumber(String token) {
         try {
-            Double.parseDouble(token);
+            Long.parseLong(token);
             return true;
         }
         catch (NumberFormatException exception) {
@@ -35,12 +43,14 @@ public abstract class TokensProcessor {
         }
     }
 
-    protected boolean isObject(String token) {
-        return token.startsWith("@");
-    }
-
-    protected boolean isVarName(String token) {
-        return token.startsWith("$");
+    protected boolean isDouble(String token) {
+        try {
+            Double.parseDouble(token);
+            return true;
+        }
+        catch (NumberFormatException exception) {
+            return false;
+        }
     }
 
     protected Object toJavaObject(QueryTokensExecutor executor, String token) {
@@ -53,6 +63,10 @@ public abstract class TokensProcessor {
         }
 
         if (isNumber(token)) {
+            return Long.parseLong(token);
+        }
+
+        if (isDouble(token)) {
             return Double.parseDouble(token);
         }
 

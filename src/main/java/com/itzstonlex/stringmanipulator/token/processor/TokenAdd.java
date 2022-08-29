@@ -17,9 +17,9 @@ public class TokenAdd extends TokensProcessor {
     @SuppressWarnings("unchecked")
     @Override
     public void process(StringManipulatorContext context, QueryTokensExecutor executor) {
-        String valueToAdd = nextToken();
+        String valueToAdd = super.nextToken();
 
-        if (super.nextToken().equals("into")) {
+        if (super.nextToken().equals("in")) {
 
             String objectInto = super.nextToken();
 

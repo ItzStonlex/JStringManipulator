@@ -9,7 +9,7 @@ public class StringQuery {
 
     private String condition, exception;
 
-    public StringQuery newLine(String query) {
+    public StringQuery next(String query) {
         this.query.append("\n").append(query);
         return this;
     }

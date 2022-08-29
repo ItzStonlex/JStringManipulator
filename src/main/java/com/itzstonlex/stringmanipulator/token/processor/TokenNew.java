@@ -18,6 +18,8 @@ public class TokenNew extends TokensProcessor {
         super("new", tokenizer);
 
         objectsFactoryMap.put("null", () -> null);
+        objectsFactoryMap.put("Number", () -> 0L);
+        objectsFactoryMap.put("Double", () -> 0D);
         objectsFactoryMap.put("Collection", ArrayList::new);
     }
 
@@ -48,6 +50,6 @@ public class TokenNew extends TokensProcessor {
             }
         }
 
-        executor.addVar(name, new TokenType(name, objectName, factory.get()));
+        executor.addVar(name, objectName, factory.get());
     }
 }
