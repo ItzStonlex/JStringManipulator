@@ -15,22 +15,23 @@ public class QueryTokensExecutor {
     private final StringQuery query;
 
     @Getter
-    private final Map<String, TokenType> variables = new WeakHashMap<>();
+    private final Map<String, TokenType<?>> variables = new WeakHashMap<>();
 
     private QueryTokenizer newTokenizer() {
         return new QueryTokenizer(query);
     }
 
-    public TokenType getVar(String name) {
-        return variables.get(name);
+    @SuppressWarnings("unchecked")
+    public <T> TokenType<T> getVar(String name) {
+        return (TokenType<T>) variables.get(name);
     }
 
-    public void addVar(String name, TokenType value) {
+    public void addVar(String name, TokenType<?> value) {
         variables.put(name, value);
     }
 
-    public void addVar(String name, String type, Object value) {
-        addVar(name, new TokenType(name, type, value));
+    public <T> void addVar(String name, String type, T value) {
+        addVar(name, new TokenType<>(name, type, value));
     }
 
     public void execute() {

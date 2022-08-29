@@ -13,20 +13,20 @@ public class TokenPrint extends TokensProcessor {
 
     @Override
     public void process(StringManipulatorContext context, QueryTokensExecutor executor) {
-        StringBuilder message = new StringBuilder();
-
+        StringBuilder messageBuilder = new StringBuilder();
         String token;
+
         while (!(token = nextToken()).equals("]")) {
 
-            if (isVarName(token)) {
-                message.append(executor.getVar(token.substring(1)).getValue());
-            }
-            else {
-                message.append(toJavaObject(executor, token));
-            }
+            Object value = isVarName(token)
+                    ? executor.getVar(token.substring(1)).getValue()
+                    : toJavaObject(executor, token);
+
+            messageBuilder.append(value).append(" ");
         }
 
-        System.out.println(message);
+        String message = messageBuilder.toString();
+        System.out.println(message.isEmpty() ? "" : message.substring(0, message.length() - 1));
     }
 
 }

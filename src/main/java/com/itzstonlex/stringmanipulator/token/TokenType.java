@@ -5,8 +5,8 @@ import lombok.ToString;
 
 @Data
 @ToString
-public final class TokenType {
+public final class TokenType<T> {
 
     private final String name, type;
-    private final Object value;
+    private final T value;
 }

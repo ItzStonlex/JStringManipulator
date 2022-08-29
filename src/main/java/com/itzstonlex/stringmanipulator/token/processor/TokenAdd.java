@@ -14,7 +14,6 @@ public class TokenAdd extends TokensProcessor {
         super("add", tokenizer);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void process(StringManipulatorContext context, QueryTokensExecutor executor) {
         String valueToAdd = super.nextToken();
@@ -24,13 +23,10 @@ public class TokenAdd extends TokensProcessor {
             String objectInto = super.nextToken();
 
             if (isVarName(objectInto)) {
-                TokenType variable = executor.getVar(objectInto.substring(1));
+                TokenType<Collection<Object>> variable = executor.getVar(objectInto.substring(1));
 
                 if (variable != null && variable.getType().equalsIgnoreCase("Collection")) {
-
-                    ((Collection<Object>) variable.getValue()).add(
-                            toJavaObject(executor, valueToAdd)
-                    );
+                    variable.getValue().add(toJavaObject(executor, valueToAdd));
                 }
             }
         }
