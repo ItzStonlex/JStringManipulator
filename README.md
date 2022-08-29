@@ -23,6 +23,12 @@ Java Frameworks manipulations by String queries
 This repository is for manipulating Java objects using `StringQuery`.
 In one session, you can perform many types of queries.
 
+**IMPORTANT:**
+This repository is a prototype on the way to creating our own programming 
+language, taking into account all the structural and caching errors, 
+development of our own compiled programming language will be started in 
+the near future.
+
 ---
 
 ## HOW TO USE?
