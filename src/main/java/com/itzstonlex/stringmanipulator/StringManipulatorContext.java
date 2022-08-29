@@ -4,7 +4,7 @@ import com.itzstonlex.stringmanipulator.token.QueryTokenizer;
 import com.itzstonlex.stringmanipulator.token.QueryTokensExecutor;
 import com.itzstonlex.stringmanipulator.token.TokensProcessor;
 import com.itzstonlex.stringmanipulator.token.processor.TokenAdd;
-import com.itzstonlex.stringmanipulator.token.processor.TokenNew;
+import com.itzstonlex.stringmanipulator.token.processor.TokenVar;
 import com.itzstonlex.stringmanipulator.token.processor.TokenPrint;
 import com.itzstonlex.stringmanipulator.token.processor.TokenSet;
 
@@ -21,7 +21,7 @@ public final class StringManipulatorContext {
     }
 
     private void _initDefaultTokens() {
-        tokenProcessorMap.put("new", TokenNew::new);
+        tokenProcessorMap.put("var", TokenVar::new);
         tokenProcessorMap.put("add", TokenAdd::new);
         tokenProcessorMap.put("print", TokenPrint::new);
         tokenProcessorMap.put("set", TokenSet::new);

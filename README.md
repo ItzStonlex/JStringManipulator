@@ -34,7 +34,7 @@ StringManipulatorContext context = new StringManipulatorContext();
 StringManipulatorSession session = context.createSession();
 
 StringQuery collectionsQuery =
-        session.makeQuery("new @Collection as $collect")
+        session.makeQuery("var @Collection as $collect")
                 .next("add 'Misha' 'Leyn' in $collect")
                 .next("add 'Egor' in $collect")
                 .next("print $collect ]")
@@ -44,12 +44,12 @@ session.execute(collectionsQuery);
 session.execute(session.makeQuery("print 'PI:' $PI ]"));
 
 session.execute(
-session.makeQuery("new @String as $hello_world")
+session.makeQuery("var @String as $hello_world")
         .next("set $hello_world = 'Hello' 'World!' ]")
         .next("print $hello_world ]"));
 
 session.execute(
-session.makeQuery("new @Number as $count")
+session.makeQuery("var @Number as $count")
         .next("set $count = 4 ]")
         .next("print 'Queries:' $count ]"));
 

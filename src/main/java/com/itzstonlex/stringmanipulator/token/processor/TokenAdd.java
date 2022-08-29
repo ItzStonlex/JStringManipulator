@@ -11,7 +11,7 @@ import java.util.Collection;
 public class TokenAdd extends TokensProcessor {
 
     public TokenAdd(QueryTokenizer tokenizer) {
-        super("add", tokenizer);
+        super(tokenizer);
     }
 
     @Override

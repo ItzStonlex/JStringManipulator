@@ -1,7 +1,7 @@
 package com.itzstonlex.stringmanipulator.token;
 
 import com.itzstonlex.stringmanipulator.StringManipulatorContext;
-import com.itzstonlex.stringmanipulator.token.processor.TokenNew;
+import com.itzstonlex.stringmanipulator.token.processor.TokenVar;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public abstract class TokensProcessor {
 
-    private final String token;
     private final QueryTokenizer tokenizer;
 
     public abstract void process(StringManipulatorContext context, QueryTokensExecutor executor);
@@ -84,7 +83,7 @@ public abstract class TokensProcessor {
                     ? executor.getVar(token.substring(1)).getValue()
                     : !isObject(token)
                         ? toJavaObject(executor, token)
-                        : context.<TokenNew>peekProcessor(tokenizer, "new").createObject(token);
+                        : context.<TokenVar>peekProcessor(tokenizer, "new").createObject(token);
 
             messageBuilder.append(value).append(" ");
         }

@@ -3,19 +3,18 @@ package com.itzstonlex.stringmanipulator.token.processor;
 import com.itzstonlex.stringmanipulator.StringManipulatorContext;
 import com.itzstonlex.stringmanipulator.token.QueryTokenizer;
 import com.itzstonlex.stringmanipulator.token.QueryTokensExecutor;
-import com.itzstonlex.stringmanipulator.token.TokenType;
 import com.itzstonlex.stringmanipulator.token.TokensProcessor;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.function.Supplier;
 
-public class TokenNew extends TokensProcessor {
+public class TokenVar extends TokensProcessor {
 
     private final Hashtable<String, Supplier<Object>> objectsFactoryMap = new Hashtable<>();
 
-    public TokenNew(QueryTokenizer tokenizer) {
-        super("new", tokenizer);
+    public TokenVar(QueryTokenizer tokenizer) {
+        super(tokenizer);
 
         objectsFactoryMap.put("null", () -> null);
         objectsFactoryMap.put("Number", () -> 0L);

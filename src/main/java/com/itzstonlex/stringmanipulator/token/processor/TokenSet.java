@@ -9,7 +9,7 @@ import com.itzstonlex.stringmanipulator.token.TokensProcessor;
 public class TokenSet extends TokensProcessor {
 
     public TokenSet(QueryTokenizer tokenizer) {
-        super("set", tokenizer);
+        super(tokenizer);
     }
 
     @Override

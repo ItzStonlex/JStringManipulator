@@ -8,7 +8,7 @@ import com.itzstonlex.stringmanipulator.token.TokensProcessor;
 public class TokenPrint extends TokensProcessor {
 
     public TokenPrint(QueryTokenizer tokenizer) {
-        super("print", tokenizer);
+        super(tokenizer);
     }
 
     @Override
