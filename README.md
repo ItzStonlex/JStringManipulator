@@ -35,9 +35,10 @@ StringManipulatorSession session = context.createSession();
 
 StringQuery collectionsQuery =
         session.makeQuery("new @Collection as $collect")
-        .next("add 'Misha' in $collect")
-        .next("add 'Egor' in $collect")
-        .next("print $collect ]");
+                .next("add 'Misha' in $collect")
+                .next("add 'Egor' in $collect")
+                .next("print $collect ]")
+                .next("print ]");
 
 session.execute(collectionsQuery);
 
@@ -53,9 +54,10 @@ session.commit();
 Example Console Response:
 ```
 [Misha, Egor]
+
 Hello!
-Queries:3
-PI:3.141592653589793
+Queries: 3
+PI: 3.141592653589793
 ```
 
 ---
