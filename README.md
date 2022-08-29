@@ -50,14 +50,14 @@ session.execute(collectionsQuery);
 session.execute(session.makeQuery("print 'PI:' $PI ]"));
 
 session.execute(
-session.makeQuery("var @String as $hello_world")
-        .next("set $hello_world = 'Hello' 'World!' ]")
-        .next("print $hello_world ]"));
+        session.makeQuery("var @String as $hello_world")
+                .next("set $hello_world = 'Hello' 'World!' ]")
+                .next("print $hello_world ]"));
 
 session.execute(
-session.makeQuery("var @Number as $count")
-        .next("set $count = 4 ]")
-        .next("print 'Queries:' $count ]"));
+        session.makeQuery("var @Number as $count")
+                .next("set $count = 4 ]")
+                .next("print 'Queries:' $count ]"));
 
 session.execute(session.makeQuery("print 3 5 6 ]"));
 
