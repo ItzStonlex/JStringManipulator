@@ -53,9 +53,9 @@ session.commit();
 
 Example Console Response:
 ```
-[Misha, Egor]
+[Misha Leyn, Egor]
 
-Hello!
+Hello World!
 Queries: 3
 PI: 3.141592653589793
 ```
