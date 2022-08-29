@@ -70,6 +70,7 @@ public abstract class TokensProcessor {
             return Double.parseDouble(token);
         }
 
+        System.out.println(token);
         return executor.getVar(token).getValue();
     }
 }

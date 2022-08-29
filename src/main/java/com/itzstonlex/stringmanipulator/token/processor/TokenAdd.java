@@ -16,19 +16,26 @@ public class TokenAdd extends TokensProcessor {
 
     @Override
     public void process(StringManipulatorContext context, QueryTokensExecutor executor) {
-        String valueToAdd = super.nextToken();
+        StringBuilder valueBuilder = new StringBuilder();
+        String token;
 
-        if (super.nextToken().equals("in")) {
+        while (!(token = super.nextToken()).equals("in")) {
+            valueBuilder.append(toJavaObject(executor, token)).append(" ");
+        }
 
-            String objectInto = super.nextToken();
+        String objectInto = super.nextToken();
 
-            if (isVarName(objectInto)) {
-                TokenType<Collection<Object>> variable = executor.getVar(objectInto.substring(1));
+        if (isVarName(objectInto)) {
+            TokenType<Collection<Object>> variable = executor.getVar(objectInto.substring(1));
 
-                if (variable != null && variable.getType().equalsIgnoreCase("Collection")) {
-                    variable.getValue().add(toJavaObject(executor, valueToAdd));
-                }
+            if (variable != null && variable.getType().equalsIgnoreCase("Collection")) {
+                String value = valueBuilder.toString();
+
+                variable.getValue().add(
+                        value.isEmpty() ? "" : value.substring(0, value.length() - 1)
+                );
             }
         }
     }
+
 }

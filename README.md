@@ -35,14 +35,14 @@ StringManipulatorSession session = context.createSession();
 
 StringQuery collectionsQuery =
         session.makeQuery("new @Collection as $collect")
-                .next("add 'Misha' in $collect")
+                .next("add 'Misha' 'Leyn' in $collect")
                 .next("add 'Egor' in $collect")
                 .next("print $collect ]")
                 .next("print ]");
 
 session.execute(collectionsQuery);
 
-session.execute(session.makeQuery("print 'Hello!' ]"));
+session.execute(session.makeQuery("print 'Hello' 'World!' ]"));
 session.execute(session.makeQuery("print 'Queries:' 3 ]"));
 
 session.execute(session.makeQuery("print 'PI:' $PI ]"));
