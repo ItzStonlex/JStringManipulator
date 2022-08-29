@@ -23,7 +23,7 @@ Java Frameworks manipulations by String queries
 This repository is for manipulating Java objects using `StringQuery`.
 In one session, you can perform many types of queries.
 
-Example:
+Example Code:
 ```java
 StringManipulatorContext context = new StringManipulatorContext();
 StringManipulatorSession session = context.createSession();
@@ -50,6 +50,13 @@ session.execute(
 session.commit();
 ```
 
+Example Response:
+```
+[Misha, Egor]
+Hello!
+Queries:3.0
+PI:3.1415
+```
 ---
 
 ## HOW TO USE?
