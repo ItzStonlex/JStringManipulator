@@ -17,11 +17,19 @@ public class CollectionsTest {
                         .next("print ]");
 
         session.execute(collectionsQuery);
-
-        session.execute(session.makeQuery("print 'Hello' 'World!' ]"));
-        session.execute(session.makeQuery("print 'Queries:' 3 ]"));
-
         session.execute(session.makeQuery("print 'PI:' $PI ]"));
+
+        session.execute(
+                session.makeQuery("new @String as $hello_world")
+                        .next("set $hello_world = 'Hello' 'World!' ]")
+                        .next("print $hello_world ]"));
+
+        session.execute(
+                session.makeQuery("new @Number as $count")
+                        .next("set $count = 4 ]")
+                        .next("print 'Queries:' $count ]"));
+
+        session.execute(session.makeQuery("print 3 5 6 ]"));
 
         // Commit & execute session queries.
         session.commit();

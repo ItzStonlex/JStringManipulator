@@ -20,7 +20,22 @@ public class TokenNew extends TokensProcessor {
         objectsFactoryMap.put("null", () -> null);
         objectsFactoryMap.put("Number", () -> 0L);
         objectsFactoryMap.put("Double", () -> 0D);
+        objectsFactoryMap.put("String", String::new);
         objectsFactoryMap.put("Collection", ArrayList::new);
+    }
+
+    public final Object createObject(String name) {
+        if (isObject(name)) {
+            name = name.substring(1);
+        }
+
+        Supplier<Object> factory = objectsFactoryMap.get(name);
+
+        if (factory == null) {
+            return null;
+        }
+
+        return factory.get();
     }
 
     @Override

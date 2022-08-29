@@ -16,24 +16,14 @@ public class TokenAdd extends TokensProcessor {
 
     @Override
     public void process(StringManipulatorContext context, QueryTokensExecutor executor) {
-        StringBuilder valueBuilder = new StringBuilder();
-        String token;
-
-        while (!(token = super.nextToken()).equals("in")) {
-            valueBuilder.append(toJavaObject(executor, token)).append(" ");
-        }
-
+        String value = buildMessage(context, executor, "in");
         String objectInto = super.nextToken();
 
         if (isVarName(objectInto)) {
             TokenType<Collection<Object>> variable = executor.getVar(objectInto.substring(1));
 
             if (variable != null && variable.getType().equalsIgnoreCase("Collection")) {
-                String value = valueBuilder.toString();
-
-                variable.getValue().add(
-                        value.isEmpty() ? "" : value.substring(0, value.length() - 1)
-                );
+                variable.getValue().add(value);
             }
         }
     }

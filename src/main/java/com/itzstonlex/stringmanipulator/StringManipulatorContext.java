@@ -6,6 +6,7 @@ import com.itzstonlex.stringmanipulator.token.TokensProcessor;
 import com.itzstonlex.stringmanipulator.token.processor.TokenAdd;
 import com.itzstonlex.stringmanipulator.token.processor.TokenNew;
 import com.itzstonlex.stringmanipulator.token.processor.TokenPrint;
+import com.itzstonlex.stringmanipulator.token.processor.TokenSet;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,6 +24,7 @@ public final class StringManipulatorContext {
         tokenProcessorMap.put("new", TokenNew::new);
         tokenProcessorMap.put("add", TokenAdd::new);
         tokenProcessorMap.put("print", TokenPrint::new);
+        tokenProcessorMap.put("set", TokenSet::new);
     }
 
     private QueryTokensExecutor _initDefaultVariables(QueryTokensExecutor executor) {

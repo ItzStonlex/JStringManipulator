@@ -1,6 +1,7 @@
 package com.itzstonlex.stringmanipulator.token;
 
 import com.itzstonlex.stringmanipulator.StringManipulatorContext;
+import com.itzstonlex.stringmanipulator.token.processor.TokenNew;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -70,7 +71,26 @@ public abstract class TokensProcessor {
             return Double.parseDouble(token);
         }
 
-        System.out.println(token);
         return executor.getVar(token).getValue();
+    }
+
+    protected String buildMessage(StringManipulatorContext context, QueryTokensExecutor executor, String endpointToken) {
+        StringBuilder messageBuilder = new StringBuilder();
+
+        String token;
+        while (!(token = nextToken()).equals(endpointToken)) {
+
+            Object value = isVarName(token)
+                    ? executor.getVar(token.substring(1)).getValue()
+                    : !isObject(token)
+                        ? toJavaObject(executor, token)
+                        : context.<TokenNew>peekProcessor(tokenizer, "new").createObject(token);
+
+            messageBuilder.append(value).append(" ");
+        }
+
+        String message = messageBuilder.toString();
+
+        return message.isEmpty() ? "" : message.substring(0, message.length() - 1);
     }
 }
