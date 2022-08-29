@@ -54,7 +54,7 @@ session.execute(
 session.commit();
 ```
 
-Example Response:
+Example Console Response:
 ```
 [Misha, Egor]
 Hello!
