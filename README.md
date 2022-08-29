@@ -23,6 +23,33 @@ Java Frameworks manipulations by String queries
 This repository is for manipulating Java objects using `StringQuery`.
 In one session, you can perform many types of queries.
 
+Example:
+```java
+StringManipulatorContext context = new StringManipulatorContext();
+StringManipulatorSession session = context.createSession();
+
+session.execute(
+        session.makeQuery("new @Collection as $collect")
+                .newLine("add 'Misha' into $collect")
+                .newLine("add 'Egor' into $collect")
+                .newLine("print $collect ]")
+);
+
+session.execute(
+        session.makeQuery("print 'Hello!' ]")
+);
+
+session.execute(
+        session.makeQuery("print 'Queries:' 3 ]")
+);
+
+session.execute(
+        session.makeQuery("print 'PI:' 3.1415 ]")
+);
+
+session.commit();
+```
+
 ---
 
 ## HOW TO USE?
