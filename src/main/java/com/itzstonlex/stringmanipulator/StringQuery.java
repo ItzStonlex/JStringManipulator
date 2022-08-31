@@ -40,11 +40,11 @@ public class StringQuery {
         return query.toString();
     }
 
-    public final void commitSingle(StringManipulatorContext context) {
+    public final StringQueryResponse commitSingle(StringManipulatorContext context) {
         StringManipulatorSession session = context.createSession();
 
         session.submit(this);
-        session.commit();
+        return session.commit();
     }
 
 }
