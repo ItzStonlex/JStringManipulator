@@ -13,7 +13,8 @@ public class TokenPrint extends TokensProcessor {
 
     @Override
     public void process(StringManipulatorContext context, QueryTokensExecutor executor) {
-        System.out.println(buildMessage(context, executor, "]"));
+        executor.getConsoleInput().append(buildMessage(context, executor, "]"))
+                .append("\n");
     }
 
 }

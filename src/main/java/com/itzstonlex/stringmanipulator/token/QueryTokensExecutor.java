@@ -15,6 +15,9 @@ public class QueryTokensExecutor {
     private final StringQuery query;
 
     @Getter
+    private final StringBuilder consoleInput = new StringBuilder();
+
+    @Getter
     private final Map<String, TokenType<?>> variables = new WeakHashMap<>();
 
     private QueryTokenizer newTokenizer() {

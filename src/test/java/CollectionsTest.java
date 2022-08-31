@@ -1,6 +1,9 @@
 import com.itzstonlex.stringmanipulator.StringManipulatorContext;
 import com.itzstonlex.stringmanipulator.StringManipulatorSession;
 import com.itzstonlex.stringmanipulator.StringQuery;
+import com.itzstonlex.stringmanipulator.StringQueryResponse;
+
+import java.util.Collection;
 
 public class CollectionsTest {
 
@@ -16,22 +19,30 @@ public class CollectionsTest {
                         .next("print $collect ]")
                         .next("print ]");
 
-        session.execute(collectionsQuery);
-        session.execute(session.makeQuery("print 'PI:' $PI ]"));
+        session.submit(collectionsQuery.resetOnCommit(false));
+        session.submit(session.makeQuery("print 'PI:' $PI ]").repeat(3));
 
-        session.execute(
+        session.submit(
                 session.makeQuery("var @String as $hello_world")
                         .next("set $hello_world = 'Hello' 'World!' ]")
                         .next("print $hello_world ]"));
 
-        session.execute(
+        session.submit(
                 session.makeQuery("var @Number as $count")
                         .next("set $count = 4 ]")
                         .next("print 'Queries:' $count ]"));
 
-        session.execute(session.makeQuery("print 3 5 6 ]"));
+        session.submit(session.makeQuery("print 3 5 6 ]"));
 
-        // Commit & execute session queries.
-        session.commit();
+        // Commit & Handle session queries response.
+        StringQueryResponse response = session.commit();
+
+        System.out.println("collection values length: " + response.<Collection<?>>var("collect").size());
+
+        System.out.println("executed queries: " + response.getExecutedQueries());
+        System.out.println("flushed queries: " + response.getFlushedQueries());
+
+        System.out.println("Response:");
+        System.out.println(response.getConsoleInput());
     }
 }

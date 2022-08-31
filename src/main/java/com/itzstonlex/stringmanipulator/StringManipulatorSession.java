@@ -1,10 +1,13 @@
 package com.itzstonlex.stringmanipulator;
 
 import com.itzstonlex.stringmanipulator.token.QueryTokensExecutor;
+import com.itzstonlex.stringmanipulator.token.TokenType;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 @RequiredArgsConstructor
 public final class StringManipulatorSession {
@@ -21,20 +24,36 @@ public final class StringManipulatorSession {
         return new StringQuery(new StringBuilder(query));
     }
 
-    public void execute(StringQuery stringQuery) {
+    public void submit(StringQuery stringQuery) {
         sessionQueries.add(stringQuery);
     }
 
-    public void reset() {
-        sessionQueries.clear();
-    }
+    public StringQueryResponse commit() {
+        Map<String, TokenType<?>> committedTokenTypes = new WeakHashMap<>();
 
-    public void commit() {
+        int executedQueries = sessionQueries.stream().mapToInt(StringQuery::getRepeat).sum();
+        int flushedQueries = 0;
+
+        StringBuilder consoleInput = new StringBuilder();
+
         for (StringQuery stringQuery : sessionQueries) {
-            context.createTokensExecutor(stringQuery).execute();
+            QueryTokensExecutor tokensExecutor = context.createTokensExecutor(stringQuery);
+
+            for (int repeat = 0; repeat < stringQuery.getRepeat(); repeat++) {
+                tokensExecutor.execute();
+            }
+
+            committedTokenTypes.putAll(tokensExecutor.getVariables());
+
+            consoleInput.append(tokensExecutor.getConsoleInput());
+
+            if (stringQuery.isResetOnCommit()) {
+                flushedQueries++;
+            }
         }
 
-        reset();
+        sessionQueries.removeIf(StringQuery::isResetOnCommit);
+        return new StringQueryResponse(committedTokenTypes, consoleInput.toString(), executedQueries, flushedQueries);
     }
 
 }
